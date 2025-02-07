@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  api-alymente-pg:
+    image: bitnami/postgresql
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USERNAME: teste-alymente
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DATABASE: alymente-db

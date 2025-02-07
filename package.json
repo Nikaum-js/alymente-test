@@ -1,0 +1,39 @@
+{
+  "name": "alymente-api-v1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup src --out-dir build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rocketseat/eslint-config": "2.2.2",
+    "@types/node": "22.13.1",
+    "@vitest/coverage-v8": "3.0.5",
+    "prisma": "6.3.1",
+    "tsup": "8.3.6",
+    "tsx": "4.19.2",
+    "typescript": "5.7.3",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.0.5"
+  },
+  "dependencies": {
+    "@fastify/swagger": "9.4.2",
+    "@fastify/swagger-ui": "5.2.1",
+    "@prisma/client": "6.3.1",
+    "@sinclair/typebox": "0.34.16",
+    "dotenv": "16.4.7",
+    "fastify": "5.2.1",
+    "fastify-swagger": "5.2.0",
+    "fastify-type-provider-zod": "4.0.2",
+    "zod": "3.24.1"
+  }
+}
