@@ -1,7 +1,7 @@
+import { Person } from '../../enterprise/entities/Person'
 import { PeopleRepository } from '../repositories/people-repository'
 
 import { prisma } from '@/lib/prisma'
-import { Person, Prisma } from '@prisma/client'
 
 export class PrismaPeopleRepository implements PeopleRepository {
   async findByEmail(email: string) {
@@ -14,7 +14,7 @@ export class PrismaPeopleRepository implements PeopleRepository {
     return person
   }
 
-  async update(id: string, data: Prisma.PersonUpdateInput): Promise<Person> {
+  async update(id: string, data: Person): Promise<Person> {
     const person = await prisma.person.update({
       where: { id },
       data,
@@ -72,7 +72,7 @@ export class PrismaPeopleRepository implements PeopleRepository {
     return person
   }
 
-  async create(data: Prisma.PersonCreateInput) {
+  async create(data: Person) {
     const person = await prisma.person.create({
       data,
     })

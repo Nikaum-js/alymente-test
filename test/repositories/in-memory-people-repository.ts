@@ -1,5 +1,5 @@
 import { PeopleRepository } from '@/domain/people/application/repositories/people-repository'
-import { Person, Prisma } from '@prisma/client'
+import { Person } from '@/domain/people/enterprise/entities/Person'
 
 export class InMemoryPeopleRepository implements PeopleRepository {
   async update(id: string, data: Partial<Person>): Promise<Person> {
@@ -53,7 +53,7 @@ export class InMemoryPeopleRepository implements PeopleRepository {
 
   public items: Person[] = []
 
-  async create(data: Prisma.PersonCreateInput) {
+  async create(data: Person) {
     const person = {
       id: 'person-1',
       address: data.address ?? null,

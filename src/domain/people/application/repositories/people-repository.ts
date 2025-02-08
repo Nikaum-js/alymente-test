@@ -1,11 +1,11 @@
-import { Person, Prisma } from '@prisma/client'
+import { Person } from '../../enterprise/entities/Person'
 
 export interface PeopleRepository {
-  create(data: Prisma.PersonCreateInput): Promise<Person>
+  create(data: Person): Promise<Person>
   findByEmail(email: string): Promise<Person | null>
   findById(id: string): Promise<Person | null>
   findByCpf(cpf: string): Promise<Person | null>
-  update(id: string, data: Prisma.PersonUpdateInput): Promise<Person>
+  update(id: string, data: Person): Promise<Person>
   delete(id: string): Promise<void>
   findAll(params: {
     page: number
