@@ -1,5 +1,6 @@
 // src/domain/people/use-cases/delete-person.spec.ts
 import { PersonNotFoundError } from '@/core/errors/person-errors'
+import { randomUUID } from 'node:crypto'
 import { InMemoryPeopleRepository } from 'test/repositories/in-memory-people-repository'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { DeletePersonUseCase } from './delete-person'
@@ -15,6 +16,7 @@ describe('Delete Person Use Case', () => {
 
   it('should be able to delete a person', async () => {
     const createdPerson = await peopleRepository.create({
+      id: randomUUID(),
       name: 'John Doe',
       email: 'johndoe@example.com',
       dateOfBirth: new Date('1990-01-01'),

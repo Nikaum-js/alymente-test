@@ -3,12 +3,13 @@ import {
   PersonEmailAlreadyExistsError,
 } from '@/core/errors/person-errors'
 import { Person } from '@prisma/client'
+import { randomUUID } from 'node:crypto'
 import { PeopleRepository } from '../repositories/people-repository'
 
 interface RegisterPersonUseCaseRequest {
   name: string
   email: string
-  dateOfBirth: Date | string
+  dateOfBirth: Date
   cpf: string
   phone?: string
   address?: string
@@ -45,13 +46,14 @@ export class RegisterPersonUseCase {
     }
 
     const person = await this.peopleRepository.create({
-      address,
+      id: randomUUID(),
+      address: address ?? null,
+      phone: phone ?? null,
       city,
       cpf,
       dateOfBirth,
       email,
       name,
-      phone,
       state,
     })
 

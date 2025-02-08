@@ -1,4 +1,4 @@
-import { PersonAlreadyExistsError } from '@/core/errors/person-errors'
+import { PersonEmailAlreadyExistsError } from '@/core/errors/person-errors'
 import { InMemoryPeopleRepository } from 'test/repositories/in-memory-people-repository'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { RegisterPersonUseCase } from './register-person'
@@ -46,7 +46,7 @@ describe('Register Person UseCase', () => {
     await stu.execute(personData)
 
     await expect(stu.execute(personData)).rejects.toThrowError(
-      PersonAlreadyExistsError,
+      PersonEmailAlreadyExistsError,
     )
   })
 })

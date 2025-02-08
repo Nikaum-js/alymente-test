@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto'
 import { InMemoryPeopleRepository } from 'test/repositories/in-memory-people-repository'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { FetchPeopleUseCase } from './fetch-person'
@@ -14,6 +15,7 @@ describe('Fetch People Use Case', () => {
   it('should be able to fetch paginated people', async () => {
     for (let i = 1; i <= 22; i++) {
       await peopleRepository.create({
+        id: randomUUID(),
         name: `Person ${i}`,
         email: `person${i}@example.com`,
         address: `Address ${i}`,
@@ -39,6 +41,7 @@ describe('Fetch People Use Case', () => {
   it('should be able to fetch paginated people with different page and perPage values', async () => {
     for (let i = 1; i <= 5; i++) {
       await peopleRepository.create({
+        id: randomUUID(),
         name: `Person ${i}`,
         email: `person${i}@example.com`,
         address: `Address ${i}`,

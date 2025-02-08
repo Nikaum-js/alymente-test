@@ -1,4 +1,5 @@
 import { PersonNotFoundError } from '@/core/errors/person-errors'
+import { randomUUID } from 'node:crypto'
 import { InMemoryPeopleRepository } from 'test/repositories/in-memory-people-repository'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { EditPersonUseCase } from './edit-person'
@@ -14,6 +15,7 @@ describe('Edit Person Use Case', () => {
 
   it('should be able to edit a person', async () => {
     const createdPerson = await peopleRepository.create({
+      id: randomUUID(),
       name: 'John Doe',
       email: 'johndoe@example.com',
       dateOfBirth: new Date('1990-01-01'),
@@ -27,6 +29,7 @@ describe('Edit Person Use Case', () => {
     const { person } = await sut.execute({
       id: createdPerson.id,
       name: 'John Doe Updated',
+      cpf: '122.285.060-52',
       email: 'johndoeupdated@example.com',
       dateOfBirth: new Date('1990-01-02'),
       phone: '0987654321',
@@ -47,10 +50,17 @@ describe('Edit Person Use Case', () => {
   })
 
   it('should throw PersonNotFoundError if person does not exist', async () => {
-    await expect(
+    return await expect(
       sut.execute({
         id: 'non-existing-id',
         name: 'John Doe Updated',
+        email: 'johndoeupdated@example.com',
+        dateOfBirth: new Date('1990-01-02'),
+        phone: '0987654321',
+        address: '456 Updated St',
+        city: 'Updated City',
+        state: 'Updated State',
+        cpf: '122.285.060-52',
       }),
     ).rejects.toBeInstanceOf(PersonNotFoundError)
   })

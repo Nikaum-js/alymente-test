@@ -1,3 +1,4 @@
+import fastifyCors from '@fastify/cors'
 import {
   serializerCompiler,
   validatorCompiler,
@@ -5,6 +6,10 @@ import {
 import { app } from './app'
 import { env } from './core/env'
 import { setupSwagger } from './domain/people/adapters/swagger'
+
+app.register(fastifyCors, {
+  origin: 'http://localhost:3000',
+})
 
 app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)

@@ -1,16 +1,21 @@
-import { PersonNotFoundError } from '@/core/errors/person-errors'
+import {
+  PersonCpfAlreadyExistsError,
+  PersonEmailAlreadyExistsError,
+  PersonNotFoundError,
+} from '@/core/errors/person-errors'
 import { Person } from '@prisma/client'
 import { PeopleRepository } from '../repositories/people-repository'
 
 interface EditPersonUseCaseRequest {
   id: string
-  name?: string
-  email?: string
-  dateOfBirth?: Date
-  phone?: string
-  address?: string
-  city?: string
-  state?: string
+  name: string
+  email: string
+  cpf: string
+  dateOfBirth: Date
+  phone: string
+  address: string
+  city: string
+  state: string
 }
 
 interface EditPersonUseCaseResponse {
@@ -24,6 +29,7 @@ export class EditPersonUseCase {
     id,
     name,
     email,
+    cpf,
     dateOfBirth,
     phone,
     address,
@@ -36,9 +42,27 @@ export class EditPersonUseCase {
       throw new PersonNotFoundError()
     }
 
+    if (email && email !== person.email) {
+      const personWithSameEmail = await this.peopleRepository.findByEmail(email)
+
+      if (personWithSameEmail) {
+        throw new PersonEmailAlreadyExistsError()
+      }
+    }
+
+    if (cpf && cpf !== person.cpf) {
+      const personWithSameCpf = await this.peopleRepository.findByCpf(cpf)
+
+      if (personWithSameCpf) {
+        throw new PersonCpfAlreadyExistsError()
+      }
+    }
+
     const updatedPerson = await this.peopleRepository.update(id, {
+      id,
       name,
       email,
+      cpf,
       dateOfBirth,
       phone,
       address,

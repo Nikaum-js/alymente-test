@@ -14,6 +14,7 @@ describe('Get Person Use Case', () => {
   })
   it('should be able to get person', async () => {
     const createdPerson = await peopleRepository.create({
+      id: randomUUID(),
       name: 'John Doe',
       email: 'johndoe@example.com',
       address: '123 Main St',
